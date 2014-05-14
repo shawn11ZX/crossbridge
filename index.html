@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Crossbridge by vpmedia</title>
+    <title>CrossBridge by vpmedia</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -16,8 +16,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">Crossbridge</h1>
-        <p class="header">Welcome to Crossbridge!</p>
+        <h1 class="header">CrossBridge</h1>
+        <p class="header">Welcome to CrossBridge!</p>
 
         <ul>
           <li class="download"><a class="buttons" href="https://github.com/vpmedia/crossbridge/zipball/master">Download ZIP</a></li>
@@ -31,36 +31,71 @@
       </header>
       <section>
         <h1>
-<a name="crossbridge" class="anchor" href="#crossbridge"><span class="octicon octicon-link"></span></a><a href="http://www.crossbridge.io">Crossbridge</a>
+<a name="crossbridge" class="anchor" href="#crossbridge"><span class="octicon octicon-link"></span></a><a href="http://www.crossbridge.io">CrossBridge</a>
 </h1>
 
-<p>Crossbridge is the open-source version of Adobe FlasCC (formerly the Alchemy project). 
+<p><a href="https://travis-ci.org/vpmedia/crossbridge"><img src="https://travis-ci.org/vpmedia/crossbridge.svg?branch=master" alt="Build Status"></a></p>
+
+<p>CrossBridge is the open-source version of Adobe FlasCC (formerly the <a href="http://labs.adobe.com/technologies/alchemy/">Alchemy</a> project). 
 It provides a complete C/C++ development environment for targeting the Adobe Flash Runtime.  </p>
 
 <p>Features:</p>
 
 <ul>
-<li>LLVM-GCC 4.2 compiler with Flash backend</li>
-<li>GDB debugger that debugs your code while running in the Flash player</li>
-<li>SWIG backend that auto generates interop code allowing you to build Flash libs (SWCs) that wrap C/C++ libraries</li>
-<li>pthread based multi-threading (in Flash 11.5+)</li>
+<li>
+<a href="http://llvm.org">LLVM-GCC 4.2</a> compiler with Flash backend</li>
+<li>
+<a href="http://www.sourceware.org/gdb">GDB</a> debugger that debugs your code while running in the Flash Player</li>
+<li>
+<a href="http://www.swig.org">SWIG</a> backend that auto-generates inter-operability code, allowing you to build Flash libraries (SWCs) that wrap C/C++ libs</li>
+<li>Multi-threading based on <a href="https://en.wikipedia.org/wiki/POSIX_Threads">POSIX Threads</a>
+</li>
 </ul><h3>
-<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h3>
+<a name="getting-started-using-crossbridge" class="anchor" href="#getting-started-using-crossbridge"><span class="octicon octicon-link"></span></a>Getting started using CrossBridge</h3>
 
 <ul>
-<li><a href="http://sourceforge.net/projects/crossbridge/files/">Download a copy of SDK for your OS</a></li>
-<li>Open README.html to get a basic idea of Crossbridge usage</li>
+<li><a href="http://sourceforge.net/projects/crossbridge/files/">Download the latest stable SDK for your OS</a></li>
+<li>Open README.html to get a basic idea of CrossBridge usage</li>
 <li>For more information about the project, please visit <a href="http://www.crossbridge.io">http://www.crossbridge.io</a>
 </li>
 </ul><h3>
-<a name="nightly-builds" class="anchor" href="#nightly-builds"><span class="octicon octicon-link"></span></a>Nightly builds</h3>
+<a name="maintenance-releases-by-vpmedia" class="anchor" href="#maintenance-releases-by-vpmedia"><span class="octicon octicon-link"></span></a>Maintenance releases by VPMedia</h3>
 
 <ul>
-<li><a href="https://dl.dropboxusercontent.com/u/1375050/cb_master_sdk-win.zip">Crossbridge SDK Windows 1.0.2</a></li>
-</ul><h3>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h3>
+<li><a href="https://github.com/vpmedia/crossbridge/blob/master/CHANGES.md">Changes</a></li>
+</ul><h4>
+<a name="crossbridge-102---windows-only" class="anchor" href="#crossbridge-102---windows-only"><span class="octicon octicon-link"></span></a>CrossBridge 1.0.2 - Windows only</h4>
 
-<p>The code written by Adobe Systems Incorporated. is all MIT licensed, but Crossbridge contains many different open-source projects which have different licenses, check the source files before making any assumptions.</p>
+<ul>
+<li><a href="https://dl.dropboxusercontent.com/u/1375050/cb_master_sdk-win.zip">Download</a></li>
+</ul><h3>
+<a name="getting-involved-in-development" class="anchor" href="#getting-involved-in-development"><span class="octicon octicon-link"></span></a>Getting involved in development</h3>
+
+<p>Check out the <a href="https://github.com/vpmedia/crossbridge/blob/master/INSTALL.md">Install Guide</a></p>
+
+<h4>
+<a name="master-branch" class="anchor" href="#master-branch"><span class="octicon octicon-link"></span></a>Master branch</h4>
+
+<ol>
+<li>Create a fork</li>
+<li>Check out <a href="https://github.com/vpmedia/crossbridge/blob/master/TODO.md">TODOs</a>
+</li>
+<li>Report a new issue, properly describing the situation - backed up with logs</li>
+<li>Submit a patch for the issue or ask others to do so</li>
+<li>Submit pull requests with complete set of new features</li>
+</ol><h4>
+<a name="futures-branch" class="anchor" href="#futures-branch"><span class="octicon octicon-link"></span></a>Futures branch</h4>
+
+<p>The main goal is to support C++11 by upgrading the compiler infrastructure to the latest LLVM tool-chain (3.X) with FreeBSD 9+</p>
+
+<ol>
+<li>Create a fork</li>
+<li>Check out <a href="https://github.com/vpmedia/crossbridge/blob/futures/TODO.md">TODOs</a>
+</li>
+<li>Check out <a href="https://github.com/vpmedia/crossbridge/blob/futures/LLVM_UPGRADE.md">LLVM Upgrade</a>
+</li>
+<li>Solve issues and submit pull requests</li>
+</ol>
       </section>
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>

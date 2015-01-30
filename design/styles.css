@@ -1,0 +1,774 @@
+/* 
+  aardvark.legs by Anatoli Papirovski - http://fecklessmind.com/
+  Licensed under the MIT license. http://www.opensource.org/licenses/mit-license.php
+  URL: http://aardvark.fecklessmind.com/aal.css.txt
+*/
+/* 
+  Reset first. Modified version of Eric Meyer and Paul Chaplin reset 
+  from http://meyerweb.com/eric/tools/css/reset/ 
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+header,
+nav,
+section,
+article,
+aside,
+footer {
+  border: 0;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  vertical-align: baseline;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+header,
+nav,
+section,
+article,
+aside,
+footer {
+  display: block;
+}
+/* Basic styles */
+body {
+  background: #fff;
+  color: #000;
+  font: 0.75em/1.5em Helvetica, Arial, "Liberation Sans", "Bitstream Vera Sans", sans-serif;
+}
+html > body {
+  font-size: 12px;
+}
+img {
+  display: inline-block;
+  vertical-align: bottom;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b,
+dt,
+th {
+  font-weight: 700;
+}
+address,
+cite,
+em,
+i,
+caption,
+dfn,
+var {
+  font-style: italic;
+}
+h1 {
+  margin: 0 0 0.75em;
+  font-size: 2em;
+}
+h2 {
+  margin: 0 0 1em;
+  font-size: 1.5em;
+}
+h3 {
+  margin: 0 0 1.286em;
+  font-size: 1.167em;
+}
+h4 {
+  margin: 0 0 1.5em;
+  font-size: 1em;
+}
+h5 {
+  margin: 0 0 1.8em;
+  font-size: .834em;
+}
+h6 {
+  margin: 0 0 2em;
+  font-size: .75em;
+}
+p,
+ul,
+ol,
+dl,
+blockquote,
+pre {
+  margin: 0 0 1.5em;
+}
+li ul,
+li ol {
+  margin: 0;
+}
+ul {
+  list-style: outside disc;
+}
+ol {
+  list-style: outside decimal;
+}
+li {
+  margin: 0 0 0 2em;
+}
+dd {
+  padding-left: 1.5em;
+}
+blockquote {
+  padding: 0 1.5em;
+}
+a {
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: none;
+}
+abbr,
+acronym {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+del {
+  text-decoration: line-through;
+}
+ins {
+  text-decoration: overline;
+}
+sub {
+  font-size: .834em;
+  line-height: 1em;
+  vertical-align: sub;
+}
+sup {
+  font-size: .834em;
+  line-height: 1em;
+  vertical-align: super;
+}
+tt,
+code,
+kbd,
+samp,
+pre {
+  font-size: 1em;
+  font-family: "Courier New", Courier, monospace;
+}
+/* Table styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 0 1.5em;
+}
+caption {
+  text-align: left;
+}
+th,
+td {
+  padding: .25em .5em;
+}
+tbody td,
+tbody th {
+  border: 1px solid #000;
+}
+tfoot {
+  font-style: italic;
+}
+/* Form styles */
+fieldset {
+  clear: both;
+}
+legend {
+  padding: 0 0 1.286em;
+  font-size: 1.167em;
+  font-weight: 700;
+}
+fieldset fieldset legend {
+  padding: 0 0 1.5em;
+  font-size: 1em;
+}
+* html legend {
+  margin-left: -7px;
+}
+* + html legend {
+  margin-left: -7px;
+}
+form .field,
+form .buttons {
+  clear: both;
+  margin: 0 0 1.5em;
+}
+form .field label {
+  display: block;
+}
+form ul.fields li {
+  list-style-type: none;
+  margin: 0;
+}
+form ul.inline li,
+form ul.inline label {
+  display: inline;
+}
+form ul.inline li {
+  padding: 0 .75em 0 0;
+}
+input.radio,
+input.checkbox {
+  vertical-align: top;
+}
+label,
+button,
+input.submit,
+input.image {
+  cursor: pointer;
+}
+* html input.radio,
+* html input.checkbox {
+  vertical-align: middle;
+}
+* + html input.radio,
+* + html input.checkbox {
+  vertical-align: middle;
+}
+textarea {
+  overflow: auto;
+}
+input.text,
+input.password,
+textarea,
+select {
+  margin: 0;
+  font: 1em/1.3 Helvetica, Arial, "Liberation Sans", "Bitstream Vera Sans", sans-serif;
+  vertical-align: baseline;
+}
+input.text,
+input.password,
+textarea {
+  border: 1px solid #444;
+  border-bottom-color: #666;
+  border-right-color: #666;
+  padding: 2px;
+}
+* html button {
+  margin: 0 .34em 0 0;
+}
+* + html button {
+  margin: 0 .34em 0 0;
+}
+form.horizontal .field {
+  padding-left: 150px;
+}
+form.horizontal .field label {
+  display: inline;
+  float: left;
+  width: 140px;
+  margin-left: -150px;
+}
+/* Useful classes */
+img.left {
+  display: inline;
+  float: left;
+  margin: 0 1.5em .75em 0;
+}
+img.right {
+  display: inline;
+  float: right;
+  margin: 0 0 .75em .75em;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+img,
+object,
+embed {
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+body {
+  width: 100%;
+  *zoom: 1;
+}
+body:before,
+body:after {
+  content: "";
+  display: table;
+}
+body:after {
+  clear: both;
+}
+body {
+  color: #090909;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, "Trebuchet MS", verdana, sans-serif, "Times New Roman", serif;
+  font-size: 90%;
+  background: #ffffff;
+}
+a:link,
+a:hover,
+a:visited {
+  color: #000099;
+  text-decoration: underline;
+}
+a:visited {
+  color: #550099;
+}
+blockquote {
+  margin-left: 1em;
+  padding-left: 0.4em;
+  border-left: 3px solid #aaa;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: arial, serif;
+  font-weight: normal;
+}
+#container {
+  position: relative;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+nav {
+  white-space: nowrap;
+}
+nav ul {
+  display: block;
+  list-style-type: none;
+  list-style-position: inside;
+}
+nav ul li {
+  display: inline-block;
+  margin: 0;
+}
+nav ul li a:link,
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  text-decoration: none !important;
+}
+header {
+  color: #eeeeee;
+  background: #f0f0f0;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+#logo {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 24px;
+  height: auto;
+  text-align: left;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+}
+#logo h1 {
+  margin: 0;
+  padding: 0 10px;
+}
+#logo.big h1 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+#logo img {
+  max-width: 100%;
+  height: auto;
+}
+header #menutop {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+  text-align: right;
+  display: block;
+  position: relative;
+}
+header #menutop a,
+header #menutop a:visited,
+header #menutop a:hover {
+  color: #2f2f2f;
+  background: transparent;
+  text-decoration: none;
+  display: inline-block;
+  padding: 3px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+header #menutop a.active,
+header #menutop a:hover {
+  color: #eeeeee;
+  background-color: #2f2f2f;
+}
+header nav {
+  height: 45px;
+  font-family: arial, serif;
+  font-size: 24px;
+  background-color: #2f2f2f;
+}
+header nav ul {
+  height: 45px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+}
+header nav ul,
+header nav ul li a,
+header nav ul li a:link {
+  margin: 0;
+  padding: 0;
+  margin: auto;
+  background-color: #2f2f2f;
+  height: 30px;
+}
+header nav ul li a,
+header nav ul li a:link {
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+header nav ul li a:visited,
+header nav ul li a:link {
+  color: #eeeeee;
+}
+header nav ul li a:hover,
+header nav ul li.active a {
+  text-shadow: #000000 1px 1px 4px;
+  background-color: #000000;
+  color: #ffffff;
+}
+@media only screen and (max-width: 680px) {
+  header nav,
+  header nav ul {
+    height: auto;
+    margin: auto;
+    text-align: center;
+    position: static;
+  }
+  header nav ul li,
+  header nav ul li a:link {
+    display: block;
+    position: static;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
+    float: none;
+  }
+}
+#breadcrumbs {
+  padding: 0 21px;
+  padding-top: 5px;
+}
+footer {
+  font-family: ;
+  font-size: 14px;
+  text-align: left;
+  clear: both;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+footer #copyright {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+  text-align: center;
+}
+footer * {
+  color: #666666;
+}
+#holder {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+  padding-bottom: 4em;
+}
+body #content {
+  line-height: 1.7em;
+  margin: 10px;
+  padding-top: 1em;
+}
+#content ul,
+#content ol,
+#content p {
+  max-width: 52em;
+  width: auto;
+}
+#content pre {
+  max-width: 100%;
+  overflow: scroll;
+  line-height: 1.5em;
+}
+@media only screen and (max-width: 960px) {
+  #content p {
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+  }
+}
+@media only screen and (max-width: 680px) {
+  body #content {
+    padding-top: 1em;
+  }
+}
+html,
+html body {
+  height: 100%;
+}
+html footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 50px;
+}
+html #container {
+  min-height: 100%;
+}
+html #holder {
+  margin-bottom: 50px;
+}
+body header nav {
+  font-size: 1.2em;
+  overflow: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 1em;
+  font-weight: bold;
+}
+body #content {
+  font-size: 1.2em;
+  margin-top: 0;
+  padding-top: 0;
+}
+body #content pre {
+  background-color: #e6e6e6;
+  border: 1px solid #bfbfbf;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  border-radius: 0.5em;
+  padding: 0.4em;
+  overflow: auto;
+  font-family: Monaco, Menlo, Consolas, "Droid Mono", monospace;
+}
+body #content table.table tr td,
+body #content table.table tr th {
+  border: 0;
+}
+body #content table.table tr th {
+  border-bottom: 1px solid #d9d9d9;
+  white-space: nowrap;
+}
+body #content table.table tr td {
+  border-top: 1px solid #d9d9d9;
+}
+body #content .pull-right {
+  float: right;
+  margin-top: -22px;
+}
+body #content .alert.pull-right {
+  width: 18em;
+  margin: 10px;
+  margin-top: -20px;
+  border: 1px solid #a8dcff;
+  background-color: #f5fbff;
+  padding: 10px;
+}
+body.main {
+  background-color: #111111;
+  color: #efefef;
+}
+body.main #filecontents code,
+body.main #filecontents pre {
+  background: transparent;
+  border: none;
+}
+body.main #content p {
+  width: auto;
+}
+body.main #content p.explanation {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 2em;
+  padding-bottom: 2em;
+  max-width: 100%;
+  width: auto;
+}
+@media only screen and (max-width: 960px - (10px * 2)) {
+  body.main #content p.explanation {
+    margin: 0.4em;
+  }
+}
+body.main #content .landingmenu {
+  text-align: center;
+}
+body.main #content .landingmenu a {
+  padding: 10px;
+  width: 320px;
+}
+body.main #content .landingmenu a,
+body.main #content .landingmenu .smaller {
+  display: block;
+  margin: 10px auto;
+}
+body.main #content .landingmenu a,
+body.main #content .landingmenu a:link,
+body.main #content .landingmenu a:hover,
+body.main #content .landingmenu a:active,
+body.main #content .landingmenu a:visited {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  color: #efefef;
+  text-decoration: none;
+  background: #1e1e1e;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+body.main #content .landingmenu a.main,
+body.main #content .landingmenu a.call-to-action,
+body.main #content .landingmenu a:hover,
+body.main #content .landingmenu a:active {
+  background-color: #fe0000;
+}
+body.main #content .landingmenu .smaller {
+  width: 350px;
+  padding-left: 10px;
+}
+body.main #content .landingmenu .smaller a {
+  margin: 0;
+  margin-right: 10px;
+  width: 145px;
+  display: inline-block;
+}
+body.main #content .landingmenu img {
+  vertical-align: baseline;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+}
+@media only screen and (max-width: 680px) {
+  body.main #content .landingmenu .smaller {
+    margin: 0;
+    padding: 0;
+  }
+  body.main #content .landingmenu .smaller a,
+  body.main #content .landingmenu .smaller,
+  body.main #content .landingmenu a {
+    width: auto;
+    display: block;
+    margin: 0;
+    margin-bottom: 5px;
+  }
+}
+body.main header {
+  background: #222222;
+}
+body.main #content {
+  font-size: 1.3em;
+}
+body.main #content a:link,
+body.main #content a:visited {
+  color: #ff3232;
+}
+body.main #content p,
+body.main #content ul {
+  max-width: 42em;
+}
+/*
+
+ */
+

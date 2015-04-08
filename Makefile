@@ -519,13 +519,13 @@ base:
 	$(RSYNC) $(SRCROOT)/tools/utils-py/swf-info.py $(SDK)/usr/bin/
 
 	$(MAKE) builtinabcs
-	$(RSYNC) tools/playerglobal/15.0/airglobal.abc $(SDK)/usr/lib/
-	$(RSYNC) tools/playerglobal/15.0/airglobal.swc $(SDK)/usr/lib/
-	$(RSYNC) tools/playerglobal/15.0/playerglobal.abc $(SDK)/usr/lib/
-	$(RSYNC) tools/playerglobal/15.0/playerglobal.swc $(SDK)/usr/lib/
+	$(RSYNC) tools/playerglobal/17.0/airglobal.abc $(SDK)/usr/lib/
+	$(RSYNC) tools/playerglobal/17.0/airglobal.swc $(SDK)/usr/lib/
+	$(RSYNC) tools/playerglobal/17.0/playerglobal.abc $(SDK)/usr/lib/
+	$(RSYNC) tools/playerglobal/17.0/playerglobal.swc $(SDK)/usr/lib/
 	$(RSYNC) avm2_env/public-api.txt $(SDK)/
 	rm -rf $(DEPENDENCY_AVMPLUS)/generated/builtin.abc
-	$(RSYNC) tools/playerglobal/15.0/builtin.abc $(DEPENDENCY_AVMPLUS)/generated/
+	$(RSYNC) tools/playerglobal/17.0/builtin.abc $(DEPENDENCY_AVMPLUS)/generated/
 	cp -f $(DEPENDENCY_AVMPLUS)/generated/*.abc $(SDK)/usr/lib/
 
 	$(RSYNC) --exclude '*iconv.h' avm2_env/usr/include/ $(SDK)/usr/include
@@ -651,7 +651,7 @@ abclibs_asdocs:
 	mkdir -p $(BUILD)/logs
 	cd $(BUILDROOT) && $(FLEX_ASDOC) \
 				-load-config= \
-				-external-library-path=$(call nativepath,$(FLEX_SDK_HOME)/frameworks/libs/player/15.0/playerglobal.swc) \
+				-external-library-path=$(call nativepath,$(FLEX_SDK_HOME)/frameworks/libs/player/17.0/playerglobal.swc) \
 				-strict=false -define+=CONFIG::asdocs,true -define+=CONFIG::actual,false -define+=CONFIG::debug,false \
 				-doc-sources+=$(call nativepath,$(SRCROOT)/posix/vfs) \
 				-doc-sources+=$(call nativepath,$(SRCROOT)/posix) \
@@ -1682,7 +1682,7 @@ test_posix:
 		-import $(call nativepath,$(SDK)/usr/lib/PlayerKernel.abc) \
 		$(call nativepath, $(BUILD)/test_posix/alcfsBackingStore.as) -outdir . -out alcfs
 	# Assembling SWF
-	cd $(BUILD)/test_posix && $(SDK_CC) -emit-swf -O0 -swf-version=15 $(call nativepath,$(SDK)/usr/lib/AlcVFSZip.abc) alcfs.abc $(SRCROOT)/test/fileio.c -o posixtest.swf
+	cd $(BUILD)/test_posix && $(SDK_CC) -emit-swf -O0 -swf-version=28 $(call nativepath,$(SDK)/usr/lib/AlcVFSZip.abc) alcfs.abc $(SRCROOT)/test/fileio.c -o posixtest.swf
 
 # Test with SciMark
 test_scimark_shell:
@@ -1700,7 +1700,7 @@ test_scimark_swf:
 	@rm -rf $(BUILD)/test_scimark_swf
 	@mkdir -p $(BUILD)/test_scimark_swf
 	# Assembling SWFs
-	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 -swf-version=17 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2-SWF17.swf
+	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 -swf-version=28 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2-SWF17.swf
 	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2.swf
 	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2v18.swf
 

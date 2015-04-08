@@ -1682,7 +1682,7 @@ test_posix:
 		-import $(call nativepath,$(SDK)/usr/lib/PlayerKernel.abc) \
 		$(call nativepath, $(BUILD)/test_posix/alcfsBackingStore.as) -outdir . -out alcfs
 	# Assembling SWF
-	cd $(BUILD)/test_posix && $(SDK_CC) -emit-swf -O0 -swf-version=28 $(call nativepath,$(SDK)/usr/lib/AlcVFSZip.abc) alcfs.abc $(SRCROOT)/test/fileio.c -o posixtest.swf
+	cd $(BUILD)/test_posix && $(SDK_CC) -emit-swf -O0 -swf-version=15 $(call nativepath,$(SDK)/usr/lib/AlcVFSZip.abc) alcfs.abc $(SRCROOT)/test/fileio.c -o posixtest.swf
 
 # Test with SciMark
 test_scimark_shell:
@@ -1700,7 +1700,7 @@ test_scimark_swf:
 	@rm -rf $(BUILD)/test_scimark_swf
 	@mkdir -p $(BUILD)/test_scimark_swf
 	# Assembling SWFs
-	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 -swf-version=28 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2-SWF17.swf
+	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 -swf-version=17 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2-SWF17.swf
 	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2.swf
 	cd $(BUILD)/test_scimark_swf && $(SDK_CC) -O4 $(SRCROOT)/scimark2_1c/*.c -emit-swf -swf-size=400x400 -o scimark2v18.swf
 

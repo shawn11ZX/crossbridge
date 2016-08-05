@@ -313,30 +313,107 @@ package C_Run
   }
 
   /**
-  * local slot for "ram"
+  * local slot for "ram", the shared ByteArray passed via flascc.ram should:
+  * - contain 0x11223344 in the [0-4]
+  * - contain 0 in the [4-7] bytes
   * @private
   */
   public const ram_init:ByteArray =
     (workerClass ? workerClass.current.getSharedProperty("flascc.ram") : null) ||
     (domainClass.currentDomain.domainMemory ? domainClass.currentDomain.domainMemory : new ByteArray);
 
-  [Weak]
-  /**
-  * @private
-  */
+  public const RAM_MAGIC:int = 0x11223344;	
   public const ram:ByteArray = ram_init;
-
+  public const RAM_MAGIC_POS:int = 0;
+  public const RAM_LENGTH_POS:int = RAM_MAGIC_POS + 4;
+  public const RAM_LENGTH_RESERVED:int = RAM_LENGTH_POS + 4;
+  public const RAM_LENGTH_MIN:int = 24*1024*1024;
+  public const RAM_INC_MIN:int = 1*1024*1024;
+  public var isLegacy:Boolean;
+  public const version:String = "v4";
   /**
-  * @private
-  */
+   * @private
+   */
   public var throwWhenOutOfMemory:Boolean = false;
+  
+  public function initRam():void
+  {
+  	trace(version + " initRam begin ");
+  	ram.endian = flash.utils.Endian.LITTLE_ENDIAN;
+  	if(ram.length < RAM_LENGTH_MIN)
+  		ram.length = RAM_LENGTH_MIN;
+  	domainClass.currentDomain.domainMemory = ram_init;  
+  	if (ramGetLength() < RAM_LENGTH_RESERVED)
+  		ramSetLength(RAM_LENGTH_RESERVED);
+  	
+  	isLegacy = ramIsLegacy();
+  	trace(version + " initRam end, legacy: " + isLegacy);
+  }
+  
+  initRam();
+  
+  
+  public function ramIsLegacy():Boolean
+  {
+  	var pos:int = ram.position;
+  	ram.position = RAM_MAGIC_POS;
+  	var magic:int = ram.readInt();
+  	ram.position = pos;
+  	
+  	return magic != RAM_MAGIC;
+  }
+  
+  public function ramGetLength():int
+  {
+  	if (isLegacy)
+  	{
+  		return ram.length;
+  	}
+  	else {
+  		var pos:int = ram.position;
+  		ram.position = RAM_LENGTH_POS;
+  		var length:int = ram.readInt();
+  		ram.position = pos;
+  		return length;
+  	}
+  }
+  
+  public function ramAtomicCompareAndSwapLength(expectedLength:int, newLength:int):int
+  {
+  	if (isLegacy)
+  	{
+  		return ram.atomicCompareAndSwapLength(expectedLength, newLength);
+  	}
+  	else {
+  		if (newLength + RAM_LENGTH_RESERVED >= ram.length)
+  			ram.length = newLength + RAM_INC_MIN;
+  		var rc:int = ram.atomicCompareAndSwapIntAt(RAM_LENGTH_POS, expectedLength, newLength);
+  		trace(version + " ramAtomicCompareAndSwapLength exp " + expectedLength + ", new " + newLength + ", rc " + rc + ",diff " + (newLength-expectedLength));
+  		return rc;
+  	}
+  }
+  
+  public function ramSetLength(newLength:int):void
+  {
+  	if (isLegacy)
+  	{
+  		ram.length = newLength;
+  	}
+  	else
+  	{
+  		var oldLength:int = ramGetLength();
+  		if (newLength + RAM_LENGTH_RESERVED> ram.length)
+  			ram.length = newLength + RAM_INC_MIN;
+  		var pos:int = ram.position;
+  		ram.position = RAM_LENGTH_POS;
+  		ram.writeInt(newLength);
+  		ram.position = pos;
+  		
+  		trace(version + " ramSetLength old " + oldLength + ", new " + ram.length + ",diff " + (ram.length-oldLength));
+  	}
+  }
 
-  ram_init.endian = Endian.LITTLE_ENDIAN;
 
-  if(ram_init.length < domainClass.MIN_DOMAIN_MEMORY_LENGTH)
-    ram_init.length = domainClass.MIN_DOMAIN_MEMORY_LENGTH;
-
-  domainClass.currentDomain.domainMemory = ram_init;  
 
   /**
   * @private
@@ -345,7 +422,7 @@ package C_Run
   [GlobalMethod]
   public function sbrk(size:int, align:int):int
   {
-    var curLen:int = ram_init.length;
+    var curLen:int = ramGetLength();
     var result:int = (curLen + align - 1) & -align;
     var newLen:int = result + size;
 
@@ -356,7 +433,7 @@ package C_Run
         var casLen:int;
 
         try {
-          casLen = ram_init.atomicCompareAndSwapLength(curLen, newLen);
+          casLen = ramAtomicCompareAndSwapLength(curLen, newLen);
         } catch(e:*) {
           if(C_Run.throwWhenOutOfMemory) throw e;
           return -1;
@@ -370,13 +447,12 @@ package C_Run
       }
     } else {
       try {
-          ram_init.length = newLen;
+          ramSetLength(newLen);
       } catch(e:*) {
         if(C_Run.throwWhenOutOfMemory) throw e;
         return -1;
       }
     }
-    //trace("sbrk: " + size + " / " + align + " / " + curLen + " / " + result + " / " + newLen);
     return result;
   }
 

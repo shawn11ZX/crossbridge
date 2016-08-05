@@ -1535,6 +1535,9 @@ public class CModule
         trace("\t", "env:", env);
         trace("\t", "preserveStack:", preserveStack);
     }
+	
+	trace(flash.utils.getQualifiedClassName(CModule) + " version: " + C_Run.version)
+	
     // set to defaults
     if(!args)
       args = new Vector.<String>();

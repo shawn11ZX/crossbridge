@@ -307,7 +307,7 @@ static void handleNonMMapAllocs(int size)
     int blockCount;
 
     if(size < 0)
-      inline_as3("%0 = (ram.length + %1) / %2" : "=r"(blockCount) : "r"(PAGE_SIZE1), "r"(PAGE_SIZE));
+      inline_as3("%0 = (ramGetLength() + %1) / %2" : "=r"(blockCount) : "r"(PAGE_SIZE1), "r"(PAGE_SIZE));
     else
       blockCount = (size + PAGE_SIZE1) / PAGE_SIZE;
     if(mmapBlockCount < blockCount) {
@@ -316,7 +316,7 @@ static void handleNonMMapAllocs(int size)
     mmapBlockCount = blockCount;
 }
 
-#define MMAP_LOG 0
+#define MMAP_LOG 1
 
 int _kevent(int fd, void *changelist, int nchanges, void *eventlist, int nevents, void *timeout)
 {
@@ -431,12 +431,12 @@ static size_t __attribute__ ((noinline)) avm2_casRamLength(size_t cur, size_t si
 {
   size_t result;
   if(avm2_haveWorkers())
-    __asm __volatile__ ("try { %0 = ram.atomicCompareAndSwapLength(%1, %2) } catch(e:*) { if(C_Run.throwWhenOutOfMemory) throw e; %0 = -1; }" : "=r"(result) : "r"(cur), "r"(size));
+    __asm __volatile__ ("try { %0 = ramAtomicCompareAndSwapLength(%1, %2) } catch(e:*) { if(C_Run.throwWhenOutOfMemory) throw e; %0 = -1; }" : "=r"(result) : "r"(cur), "r"(size));
   else
   {
     __asm __volatile__(
-      "%0 = ram.length\n"
-      "if(%0 == %1) { try { ram.length = %2 } catch(e:*) { if(C_Run.throwWhenOutOfMemory) throw e; %0 = -1; } }"
+      "%0 = ramGetLength();\n"
+      "if(%0 == %1) { try { ramSetLength(%2) } catch(e:*) { if(C_Run.throwWhenOutOfMemory) throw e; %0 = -1; } }"
       : "+r"(result) : "r"(cur), "r"(size)
     );
   }
@@ -479,7 +479,7 @@ void* __attribute__ ((noinline)) __sys_mmap(void *addr, size_t len, int prot, in
     if(avm2_haveWorkers()) avm2_lock(&smmapMtx);
 tryAlloc: // we need to spin trying to grow memory length in case someone other than
           // mmap (like the thread arbitration, or hand-written as3) is changing it!
-    AS3_GetScalarFromVar(curLen, ram.length);
+    AS3_GetScalarFromVar(curLen, ramGetLength());
     handleNonMMapAllocs(curLen);
     mmap_log("mmap after handleNonMMapAllocs: mmapBlockCount = ", mmapBlockCount);
 
@@ -518,8 +518,8 @@ tryAlloc: // we need to spin trying to grow memory length in case someone other 
             mmapBlockCount = newBlockCount;
             #if MMAP_LOG
                 int rlen;
-                AS3_GetScalarFromVar(rlen, ram.length);
-                mmap_log("mmap ram.length: ", rlen);
+                AS3_GetScalarFromVar(rlen, ramGetLength());
+                mmap_log("mmap ramGetLength(): ", rlen);
             #endif
         }
     }
@@ -572,8 +572,8 @@ int __attribute__ ((noinline)) munmap(void *addr, size_t len)
               mmapBlockCount = blockCount;
 #if MMAP_LOG
             int rlen;
-            AS3_GetScalarFromVar(rlen, ram.length);
-            mmap_log("mmap ram.length: ", rlen);
+            AS3_GetScalarFromVar(rlen, ramGetLength());
+            mmap_log("mmap ramGetLength(): ", rlen);
 #endif
         }
     }
@@ -674,7 +674,7 @@ void *sbrk(int size)
 {
     void *result;
     if(size == 0)
-        inline_nonreentrant_as3("%0 = ram.length;\n" : "=r"(result));
+        inline_nonreentrant_as3("%0 = ramGetLength();\n" : "=r"(result));
     else
         inline_nonreentrant_as3("%0 = sbrk(%1, %2);\n" : "=r"(result) : "r"((size + PAGE_SIZE1) & ~PAGE_SIZE1), "r"(PAGE_SIZE));
 

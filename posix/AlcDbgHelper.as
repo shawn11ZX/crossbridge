@@ -30,6 +30,7 @@ package com.adobe.flascc
 	import C_Run.edx;
     import C_Run.st0;
 	import C_Run.ESP;
+	import C_Run.ramGetLength;
 
 	[ExcludeClass]
 	/**
@@ -594,9 +595,9 @@ package com.adobe.flascc
 				return ba;
 
 			// copy any domainMemory requested
-			if(ptrCur < ram.length)
+			if(ptrCur < ramGetLength())
 			{
-				var n:int = Math.min(ptrEnd-ptrCur, ram.length-ptrCur);
+				var n:int = Math.min(ptrEnd-ptrCur, ramGetLength()-ptrCur);
 				ba.writeBytes(ram, ptrCur, n);
 				ptrCur += n;
 				while(ptrCur & 3)
@@ -697,10 +698,10 @@ package com.adobe.flascc
 
 			if(!CModule.regsInitted)
 				return result;
-			if(ptr < ram.length)
+			if(ptr < ramGetLength())
 			{
-				if((ptr + len) > ram.length)
-					len = ram.length - ptr; // partial write => error (but still write!) according to some guy! http://www.it.uom.gr/teaching/gcc_manuals/onlinedocs/gdb_33.html
+				if((ptr + len) > ramGetLength())
+					len = ramGetLength() - ptr; // partial write => error (but still write!) according to some guy! http://www.it.uom.gr/teaching/gcc_manuals/onlinedocs/gdb_33.html
 				else
 					result = "OK";
 				ram.position = ptr;
